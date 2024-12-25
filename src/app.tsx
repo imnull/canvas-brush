@@ -3,7 +3,8 @@ import './app.scss'
 
 import {
     createPaintController,
-    renderPoints,
+    cleanupCanvas,
+    renderPointStep,
 } from './canvas-brush'
 
 export default () => {
@@ -12,9 +13,10 @@ export default () => {
         if(!canvas) {
             return
         }
+        cleanupCanvas(canvas)
         const handler = createPaintController(canvas, {
-            onMove: (point, privousPoint, points) => {
-                renderPoints(canvas, points)
+            onMove: (point) => {
+                renderPointStep(canvas, point)
             }
         })
         return () => {
